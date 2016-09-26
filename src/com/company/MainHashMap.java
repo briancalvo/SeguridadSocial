@@ -23,12 +23,14 @@ public class MainHashMap { public static void main(String[] args) {
 
     System.out.println("Lista de afiliados a la S.S : "+seguridadSocialHashMap.obtenerTodas());
 
-    System.out.println("Obtener persona por dni: "+seguridadSocialHashMap.obtenerPersonaPorDNI(jose.getDni()));
+    System.out.println("Obtener persona por dni: "+seguridadSocialHashMap.obtenerPersonaPorDNI(carlos.getDni()));
 
     System.out.println("Obtener persona por numero seguridad social: "+seguridadSocialHashMap.obtenerPersonaPorNumSS(maria.getNum_ss()));
 
     System.out.println("Obtener personas por rango Salarial: "+seguridadSocialHashMap.obtenerPersonasRangoSalarial(23000.00,45000.00));
 
     System.out.println("Obtener Personas Mayores que: "+seguridadSocialHashMap.obtenerPersonasMayoresQue(25));
+    System.out.println("Obtener Personas Mayores que: "+seguridadSocialHashMap.ordenarPersonasEdad());
+
 }
 }

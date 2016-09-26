@@ -1,9 +1,7 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.swing.*;
+import java.util.*;
 
 /**
  * Created by Brian on 23/09/2016.
@@ -11,18 +9,23 @@ import java.util.Map;
 public class SeguridadSocialHashMap {
     private Map<String,Persona> personaMapDni = new HashMap<>();
     private Map<String,Persona> personaMapNum_ss = new HashMap<>();
+    private Map<Integer,Persona> personaMapEdad = new HashMap<>();
 
     public void altaPersona(Persona persona){
-        if (!personaMapDni.containsKey(persona.getDni()) && !personaMapNum_ss.containsKey(persona.getNum_ss())){
+        if (!personaMapDni.containsKey(persona.getDni()) && !personaMapNum_ss.containsKey(persona.getNum_ss()) && !personaMapEdad.containsKey((persona.getEdad()))){
             personaMapDni.put(persona.getDni(),persona);
             personaMapNum_ss.put(persona.getNum_ss(),persona);
+            personaMapEdad.put(persona.getEdad(),persona);
         }
     }
     public void bajaPersona(String dni){
         String Num_ss = null;
+        Integer Edad = null;
         Num_ss = personaMapDni.get(dni).getNum_ss();
+        Edad = personaMapDni.get(dni).getEdad();
         personaMapDni.remove(dni);
         personaMapNum_ss.remove(Num_ss);
+        personaMapEdad.remove(Edad);
     }
     public Persona obtenerPersonaPorDNI(String dni){
         //personaMapDni.keySet(); Coger todas las Keys
@@ -33,6 +36,7 @@ public class SeguridadSocialHashMap {
     public Persona obtenerPersonaPorNumSS(String numSS){
         return personaMapNum_ss.get(numSS);
     }
+    public Persona obtenerPersonasPorEdad(Integer edad) { return personaMapEdad.get(edad);}
     public List<Persona> obtenerPersonasRangoSalarial(double min, double max){
         List<Persona> aux = new ArrayList<>();
         for (Persona personaActual : personaMapDni.values()){
@@ -43,6 +47,11 @@ public class SeguridadSocialHashMap {
     public List<Persona> obtenerPersonasMayoresQue(int edad){
         List<Persona> aux = new ArrayList<>();
         for (Persona personaActual : personaMapDni.values())if (personaActual.getEdad()>edad);
+        return aux;
+    }
+    public List<Persona> ordenarPersonasEdad(){
+        List<Persona> aux = new ArrayList<>(personaMapEdad.values());
+        aux.sort(Comparator.comparing(Persona::getEdad));
         return aux;
     }
     public List<Persona> obtenerTodas(){
